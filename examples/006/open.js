@@ -1,2 +1,24 @@
 const { platform } = require('os');
 const { exec } = require('child_process');
+
+const WINDOWS_PLATFORM = 'win32';
+
+const osPlatform = platform();
+const args = process.argv.slice(2);
+const [url] = args;
+
+if (url === undefined) {
+    console.error(' Enter something Dumb Ass');
+    process.exit(0);
+}
+let command;
+
+if (osPlatform === WINDOWS_PLATFORM) {
+    command = `start microsoft-edge:${url}`;
+} else {
+    command = `open -a "Google Chrome" ${url}`;
+}
+console.log(`executing command: ${command}`);
+exec(command);
+//On Windows machine Edge browser open UTL
+//On mac/'nix machines, Chrome browser opens URL
